@@ -1,0 +1,193 @@
+{
+  "poster": "https://cf-images.ap-southeast-2.prod.boltdns.net/v1/jit/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/main/640x360/12m12s736ms/match/image.jpg",
+  "thumbnail": "https://cf-images.ap-southeast-2.prod.boltdns.net/v1/jit/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/main/160x90/12m12s736ms/match/image.jpg",
+  "poster_sources": [{
+    "src": "https://cf-images.ap-southeast-2.prod.boltdns.net/v1/jit/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/main/640x360/12m12s736ms/match/image.jpg"
+  }],
+  "thumbnail_sources": [{
+    "src": "https://cf-images.ap-southeast-2.prod.boltdns.net/v1/jit/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/main/160x90/12m12s736ms/match/image.jpg"
+  }],
+  "description": "Vince, a charming Breakfast TV host, endures a grave trouser malfunction at the children's cancer ward on live TV, and must navigate the aftermath to save his reputation.",
+  "tags": ["tv3", "_g"],
+  "cue_points": [{
+    "id": "4882098963058",
+    "name": "Pre-roll",
+    "type": "AD",
+    "time": 0,
+    "metadata": null,
+    "force_stop": false
+  }, {
+    "id": "5312480387582",
+    "name": "Cuepoint",
+    "type": "AD",
+    "time": 635.6,
+    "metadata": null,
+    "force_stop": false
+  }, {
+    "id": "1186586387756",
+    "name": "Cuepoint",
+    "type": "AD",
+    "time": 1124.4,
+    "metadata": null,
+    "force_stop": false
+  }],
+  "custom_fields": {
+    "tv_deal_no": "144818",
+    "tv_episode_id": "90489216",
+    "tv_episode_number": "1",
+    "tv_episode_title": "Episode 1",
+    "tv_hd_available": "Y",
+    "tv_planned_aired_date": "2025-02-13 06:01",
+    "tv_season": "1",
+    "tv_season_ext_id": "90286905",
+    "tv_season_synopsis": "Vince, a charming Breakfast TV host, endures a grave trouser malfunction at the children's cancer ward on live TV, and must navigate the aftermath to save his reputation.",
+    "tv_series_ext_id": "90047482",
+    "tv_series_title": "Vince",
+    "video_content_type": "episode"
+  },
+  "account_id": "3812193411001",
+  "sources": [{
+    "codecs": "avc1,mp4a",
+    "ext_x_version": "5",
+    "key_systems": {
+      "com.apple.fps.1_0": {
+        "certificate_url": "https://manifest.prod.boltdns.net/license/v1/fairplay_app_cert/3812193411001",
+        "key_request_url": "https://manifest.prod.boltdns.net/license/v1/fairplay/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/10c1b4d7-3a76-44ad-8ced-6ff735edca44?fastly_token=NjdiNDUzMDFfYmEwZmQyMGRiZTY3ZDI2YzM0YmNmZGE2MDk1YzZjYjQ3NzU3MmNjOTI1NmM2YzhkYmIyZmFjMDc5MzcxMzRmNg%3D%3D"
+      }
+    },
+    "src": "http://manifest.prod.boltdns.net/manifest/v1/hls/v5/fairplay/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/10s/master.m3u8?fastly_token=NjdiNDUzMDFfMjg5OTY5ZTU1NDVhZjA3ZWExYzJlZTI0YTUxYzQwMzA1Y2VlYzVmNjJkNzAyZDg1MjBhMDU5Mzg2M2FkOWY0ZQ%3D%3D",
+    "type": "application/x-mpegURL"
+  }, {
+    "codecs": "avc1,mp4a",
+    "ext_x_version": "5",
+    "key_systems": {
+      "com.apple.fps.1_0": {
+        "certificate_url": "https://manifest.prod.boltdns.net/license/v1/fairplay_app_cert/3812193411001",
+        "key_request_url": "https://manifest.prod.boltdns.net/license/v1/fairplay/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/10c1b4d7-3a76-44ad-8ced-6ff735edca44?fastly_token=NjdiNDUzMDFfYmEwZmQyMGRiZTY3ZDI2YzM0YmNmZGE2MDk1YzZjYjQ3NzU3MmNjOTI1NmM2YzhkYmIyZmFjMDc5MzcxMzRmNg%3D%3D"
+      }
+    },
+    "src": "https://manifest.prod.boltdns.net/manifest/v1/hls/v5/fairplay/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/10s/master.m3u8?fastly_token=NjdiNDUzMDFfMjg5OTY5ZTU1NDVhZjA3ZWExYzJlZTI0YTUxYzQwMzA1Y2VlYzVmNjJkNzAyZDg1MjBhMDU5Mzg2M2FkOWY0ZQ%3D%3D",
+    "type": "application/x-mpegURL"
+  }, {
+    "codecs": "avc1,mp4a",
+    "key_systems": {
+      "com.microsoft.playready": {
+        "license_url": "https://manifest.prod.boltdns.net/license/v1/cenc/playready/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/7c90c7b7-5d64-4554-a531-cce1bf8abce2?fastly_token=NjdiNDUzMDFfMThkNzhkNGY0ZjY4MTI4OWU0N2M1NDRiOTA0Zjk4M2M4OTI0Y2JjNWJiZWU3YjhjOTMzMTkzNzdhNjgwZmIyYQ%3D%3D"
+      },
+      "com.widevine.alpha": {
+        "license_url": "https://manifest.prod.boltdns.net/license/v1/cenc/widevine/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/7c90c7b7-5d64-4554-a531-cce1bf8abce2?fastly_token=NjdiNDUzMDFfNWViNTJkYTNmODZjZTBhNTNmOWUyNDgzNzdmN2U5OWU5MDI5YTgxZmU5YzcyNDJmZmRlMTMyNzk5ZTQ1YWQyYg%3D%3D"
+      }
+    },
+    "profiles": "urn:mpeg:dash:profile:isoff-live:2011",
+    "src": "http://manifest.prod.boltdns.net/manifest/v1/dash/live-baseurl/bccenc/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/2s/manifest.mpd?fastly_token=NjdiNDUzMDFfMTE1YWNmMTVkMDY4M2QyODE5YzRmMDc4ZThhNGY5NzgyN2Q4MGMzNzZhNjUwMjFhZDNlYjgzODM5MGQ5Y2ZjOA%3D%3D",
+    "type": "application/dash+xml"
+  }, {
+    "codecs": "avc1,mp4a",
+    "key_systems": {
+      "com.microsoft.playready": {
+        "license_url": "https://manifest.prod.boltdns.net/license/v1/cenc/playready/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/7c90c7b7-5d64-4554-a531-cce1bf8abce2?fastly_token=NjdiNDUzMDFfMThkNzhkNGY0ZjY4MTI4OWU0N2M1NDRiOTA0Zjk4M2M4OTI0Y2JjNWJiZWU3YjhjOTMzMTkzNzdhNjgwZmIyYQ%3D%3D"
+      },
+      "com.widevine.alpha": {
+        "license_url": "https://manifest.prod.boltdns.net/license/v1/cenc/widevine/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/7c90c7b7-5d64-4554-a531-cce1bf8abce2?fastly_token=NjdiNDUzMDFfNWViNTJkYTNmODZjZTBhNTNmOWUyNDgzNzdmN2U5OWU5MDI5YTgxZmU5YzcyNDJmZmRlMTMyNzk5ZTQ1YWQyYg%3D%3D"
+      }
+    },
+    "profiles": "urn:mpeg:dash:profile:isoff-live:2011",
+    "src": "https://manifest.prod.boltdns.net/manifest/v1/dash/live-baseurl/bccenc/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/2s/manifest.mpd?fastly_token=NjdiNDUzMDFfMTE1YWNmMTVkMDY4M2QyODE5YzRmMDc4ZThhNGY5NzgyN2Q4MGMzNzZhNjUwMjFhZDNlYjgzODM5MGQ5Y2ZjOA%3D%3D",
+    "type": "application/dash+xml"
+  }, {
+    "codecs": "avc1,mp4a",
+    "key_systems": {
+      "com.microsoft.playready": {
+        "license_url": "https://manifest.prod.boltdns.net/license/v1/playready/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/207cfd61-0563-4ead-aba1-8b6b683f36f4?fastly_token=NjdiNDUzMDFfMWU3YzQ2MmIzZTA5MGE4ZWMwMTFhMTY3NzRiZDMyOGYzZDI3ZTg0NWQ3ZGVkNTE2YzE5YWM2MjhmZjA3MTJkMg%3D%3D"
+      }
+    },
+    "profiles": "urn:hbbtv:dash:profile:isoff-live:2012,urn:mpeg:dash:profile:isoff-live:2011",
+    "src": "http://manifest.prod.boltdns.net/manifest/v1/dash/live-hbbtv15/playready/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/2s/manifest.mpd?fastly_token=NjdiNDUzMDFfOTBkYThhNDYxYWU0OTVhNmY3MzdmZGI2OTcyOGM2YjhjYWYyMWUxN2QwMTE4ZjlhYjZhMDI4NDAxYzJjYTIwMw%3D%3D",
+    "type": "application/dash+xml"
+  }, {
+    "codecs": "avc1,mp4a",
+    "key_systems": {
+      "com.microsoft.playready": {
+        "license_url": "https://manifest.prod.boltdns.net/license/v1/playready/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/207cfd61-0563-4ead-aba1-8b6b683f36f4?fastly_token=NjdiNDUzMDFfMWU3YzQ2MmIzZTA5MGE4ZWMwMTFhMTY3NzRiZDMyOGYzZDI3ZTg0NWQ3ZGVkNTE2YzE5YWM2MjhmZjA3MTJkMg%3D%3D"
+      }
+    },
+    "profiles": "urn:hbbtv:dash:profile:isoff-live:2012,urn:mpeg:dash:profile:isoff-live:2011",
+    "src": "https://manifest.prod.boltdns.net/manifest/v1/dash/live-hbbtv15/playready/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/2s/manifest.mpd?fastly_token=NjdiNDUzMDFfOTBkYThhNDYxYWU0OTVhNmY3MzdmZGI2OTcyOGM2YjhjYWYyMWUxN2QwMTE4ZjlhYjZhMDI4NDAxYzJjYTIwMw%3D%3D",
+    "type": "application/dash+xml"
+  }, {
+    "codecs": "avc1,mp4a",
+    "key_systems": {
+      "com.microsoft.playready": {
+        "license_url": "https://manifest.prod.boltdns.net/license/v1/playready/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/207cfd61-0563-4ead-aba1-8b6b683f36f4?fastly_token=NjdiNDUzMDFfMWU3YzQ2MmIzZTA5MGE4ZWMwMTFhMTY3NzRiZDMyOGYzZDI3ZTg0NWQ3ZGVkNTE2YzE5YWM2MjhmZjA3MTJkMg%3D%3D"
+      }
+    },
+    "src": "http://boltmwprod1-a.akamaihd.net/media/v1/smooth/simple/playready/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/207cfd61-0563-4ead-aba1-8b6b683f36f4/manifest.ism/Manifest",
+    "type": "application/vnd.ms-sstr+xml"
+  }, {
+    "codecs": "avc1,mp4a",
+    "key_systems": {
+      "com.microsoft.playready": {
+        "license_url": "https://manifest.prod.boltdns.net/license/v1/playready/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/207cfd61-0563-4ead-aba1-8b6b683f36f4?fastly_token=NjdiNDUzMDFfMWU3YzQ2MmIzZTA5MGE4ZWMwMTFhMTY3NzRiZDMyOGYzZDI3ZTg0NWQ3ZGVkNTE2YzE5YWM2MjhmZjA3MTJkMg%3D%3D"
+      }
+    },
+    "src": "https://boltmwprod1-a.akamaihd.net/media/v1/smooth/simple/playready/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/207cfd61-0563-4ead-aba1-8b6b683f36f4/manifest.ism/Manifest",
+    "type": "application/vnd.ms-sstr+xml"
+  }],
+  "name": "Vince - S1 Ep1",
+  "reference_id": "MW489216_bolt_120002",
+  "long_description": null,
+  "duration": 1465472,
+  "economics": "AD_SUPPORTED",
+  "text_tracks": [{
+    "id": "8d265b3a-0d7a-46db-95a1-e00a0b1c436d",
+    "account_id": "3812193411001",
+    "src": "http://boltmwprod1-a.akamaihd.net/media/v1/text/vtt/clear/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/8d265b3a-0d7a-46db-95a1-e00a0b1c436d/text.vtt",
+    "srclang": "en-NZ",
+    "label": "en-NZ",
+    "kind": "captions",
+    "mime_type": "text/webvtt",
+    "asset_id": null,
+    "sources": [{
+      "src": "http://boltmwprod1-a.akamaihd.net/media/v1/text/vtt/clear/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/8d265b3a-0d7a-46db-95a1-e00a0b1c436d/text.vtt"
+    }, {
+      "src": "https://boltmwprod1-a.akamaihd.net/media/v1/text/vtt/clear/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/8d265b3a-0d7a-46db-95a1-e00a0b1c436d/text.vtt"
+    }],
+    "in_band_metadata_track_dispatch_type": "",
+    "default": false
+  }, {
+    "id": null,
+    "account_id": "3812193411001",
+    "src": "http://manifest.prod.boltdns.net/thumbnail/v1/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/fa1c599e-09f4-48de-ab8a-3bfe589705ff/thumbnail.webvtt?fastly_token=NjdiNDUzMDFfOGMyNWExZjZkMjY1NmNjOTY2NDZmYzMxNjg5ZDI0Mjk0M2EyMDI2NGMwZDY1ZTkzYjZiZDJkZGYxZWEyOGQ1OQ%3D%3D",
+    "srclang": null,
+    "label": "thumbnails",
+    "kind": "metadata",
+    "mime_type": "text/webvtt",
+    "asset_id": null,
+    "sources": null,
+    "default": false,
+    "width": 480,
+    "height": 270,
+    "bandwidth": 447
+  }, {
+    "id": null,
+    "account_id": "3812193411001",
+    "src": "https://manifest.prod.boltdns.net/thumbnail/v1/3812193411001/9c66aabb-5850-4c10-b658-6556d4a3a3f6/fa1c599e-09f4-48de-ab8a-3bfe589705ff/thumbnail.webvtt?fastly_token=NjdiNDUzMDFfOGMyNWExZjZkMjY1NmNjOTY2NDZmYzMxNjg5ZDI0Mjk0M2EyMDI2NGMwZDY1ZTkzYjZiZDJkZGYxZWEyOGQ1OQ%3D%3D",
+    "srclang": null,
+    "label": "thumbnails",
+    "kind": "metadata",
+    "mime_type": "text/webvtt",
+    "asset_id": null,
+    "sources": null,
+    "default": false,
+    "width": 480,
+    "height": 270,
+    "bandwidth": 447
+  }],
+  "published_at": "2025-01-21T12:00:04.026Z",
+  "created_at": "2025-01-21T12:00:04.031Z",
+  "updated_at": "2025-01-29T20:07:12.923Z",
+  "offline_enabled": false,
+  "link": null,
+  "id": "6367440676112",
+  "ad_keys": null
+}

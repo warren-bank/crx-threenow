@@ -1,0 +1,487 @@
+--------------------------------------------------------------------------------
+
+https://www.threenow.co.nz/
+https://www.threenow.co.nz/categories
+
+--------------------------------------------------------------------------------
+
+test videos:
+============
+
+https://www.threenow.co.nz/shows/vince/1736807040347
+  all available episodes in series
+
+https://www.threenow.co.nz/shows/vince/season-1-ep-1/1736807040347/M94683-680
+  individual episode
+
+--------------------------------------------------------------------------------
+
+brightcove API:
+===============
+
+https://apis.support.brightcove.com/playback/references/reference_v2.html#tag/Videos/operation/Get_Video_by_ID_or_Reference_ID
+https://edge.api.brightcove.com/playback/v1/accounts/{{account_id}}/videos/ref:{reference_id}
+
+usage:
+======
+
+policy_key=''
+account_id=''
+reference_id=''
+referer_url=''
+
+curl --insecure \
+  -H "Referer: ${referer_url}" \
+  -H "BCOV-POLICY: ${policy_key}" \
+  "https://edge.api.brightcove.com/playback/v1/accounts/${account_id}/videos/ref:${reference_id}"
+
+alternatively:
+==============
+
+curl --insecure \
+  -H "Referer: ${referer_url}" \
+  -H "Accept: application/json;pk=${policy_key}" \
+  "https://edge.api.brightcove.com/playback/v1/accounts/${account_id}/videos/ref:${reference_id}"
+
+--------------------------------------------------------------------------------
+
+view-source:https://www.threenow.co.nz/shows/vince/1736807040347
+  <meta name="mw-3now/config/environment" content="%7B%22modulePrefix%22%3A%22mw-3now%22%2C%22environment%22%3A%22production%22%2C%22rootURL%22%3A%22%2F%22%2C%22baseURL%22%3A%22%2F%22%2C%22locationType%22%3A%22auto%22%2C%22apiBase%22%3A%22https%3A%2F%2Fnow-api.fullscreen.nz%2Fv5%2F%22%2C%22EmberENV%22%3A%7B%22EXTEND_PROTOTYPES%22%3Afalse%2C%22FEATURES%22%3A%7B%7D%2C%22_APPLICATION_TEMPLATE_WRAPPER%22%3Afalse%2C%22_DEFAULT_ASYNC_OBSERVERS%22%3Atrue%2C%22_JQUERY_INTEGRATION%22%3Afalse%2C%22_TEMPLATE_ONLY_GLIMMER_COMPONENTS%22%3Atrue%7D%2C%22APP%22%3A%7B%22name%22%3A%22ThreeNow%22%2C%22version%22%3A%224.7.1%22%2C%22commit%22%3A%223103db88%22%2C%22buildDate%22%3A%224th%20December%2C%2010%3A02%3A15%20am%22%2C%22commitLink%22%3A%22https%3A%2F%2Fgithub.com%2FMediaworksAPI%2Fnow-web-ember%2Fcommit%2F3103db880901df399b682b925b824756d59b3c88%22%2C%22displayVersion%22%3Afalse%2C%22displayPlayerVariant%22%3Afalse%2C%22logging%22%3A%7B%22analytics%22%3Atrue%2C%22gigya%22%3Afalse%7D%2C%22videoPlayersIds%22%3A%7B%22ssai%22%3A%22IzdnIuzF8%22%2C%22ima%22%3A%22jUnZ8Sjxj%22%7D%7D%2C%22appStoreUrls%22%3A%7B%22iOS%22%3A%22https%3A%2F%2Fitunes.apple.com%2Fnz%2Fapp%2Fthreenow%2Fid713771599%3Fmt%3D8%22%2C%22android%22%3A%22https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.mediaworks.android%22%2C%22androidTV%22%3A%22https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.mediaworks.android.tv%22%2C%22smartTV%22%3A%22http%3A%2F%2Fwww.samsung.com%2Fnz%2F3NOW%2F%22%2C%22freeViewPlus%22%3A%22http%3A%2F%2Fwww.freeviewnz.tv%2F%22%2C%22appleTV%22%3A%22https%3A%2F%2Fitunes.apple.com%2Fnz%2Fapp%2Fthreenow%2Fid713771599%3Fmt%3D8%22%7D%2C%22dashboardMeta%22%3A%7B%22title%22%3A%22ThreeNow%20%7C%20Three%20%7C%20Watch%20Episodes%22%2C%22description%22%3A%22Watch%20the%20latest%20TV%20On%20Demand%20episodes%20of%20all%20your%20favourite%20shows%20from%20Three%20with%20ThreeNow.%20Watch%20Three%20livestream%2C%20Three%20Movies%20and%20Three%20shows.%22%2C%22footer%22%3A%22Copyright%20%26copy%3B%202024%20Discovery%20NZ%20Limited%20(Warner%20Bros.%20Discovery)%20-%20All%20Rights%20Reserved%22%7D%2C%22notFoundMeta%22%3A%7B%22title%22%3A%22Page%20not%20found%20-%20Error%20404%22%2C%22description%22%3A%22Threenow%20404%20Page%22%7D%2C%22brightcoveAccountId%22%3A%223812193411001%22%2C%22brightcovePolicyKey%22%3A%22BCpkADawqM2-Pw-g3-psbmh7mEsKhBVp1QRsKxK5tBOpF72ud6VrAndDsRbs2jlmlgSRJiPdNjJOJESytpUUmyb-Muz41HVYcPcoEdG2E8xmHgcwy7frHjTwbJqTXo2Sxmhjgw2Nynprcv7c%22%2C%22videoPlayers%22%3A%5B%7B%22name%22%3A%22ssai%22%2C%22assets%22%3A%7B%22scripts%22%3A%5B%22%2F%2Fplayers.brightcove.net%2F3812193411001%2FIzdnIuzF8_default%2Findex.min.js%22%5D%2C%22styles%22%3A%5B%5D%7D%7D%2C%7B%22name%22%3A%22ima%22%2C%22assets%22%3A%7B%22scripts%22%3A%5B%22%2F%2Fplayers.brightcove.net%2F3812193411001%2FjUnZ8Sjxj_default%2Findex.min.js%22%5D%2C%22styles%22%3A%5B%5D%7D%7D%2C%7B%22name%22%3A%22livestream%22%2C%22assets%22%3A%7B%22scripts%22%3A%5B%22%2F%2Fcontent.jwplatform.com%2Flibraries%2FQwq54kwD.js%22%5D%2C%22styles%22%3A%5B%5D%7D%7D%5D%2C%22jwplayerPluginLSAI%22%3A%22https%3A%2F%2Fcdn.fullscreen.nz%2Fplayer-threenow-jwplayer%2Fprod%2Fjs%2Fplugin-lsai-csb.js%22%2C%22jwplayerAdOverlay%22%3A%22https%3A%2F%2Fcdn.fullscreen.nz%2Fplayer-threenow-jwplayer%2Fprod%2Fstyles%2Fad-info.css%22%2C%22jwplayerMuxSDK%22%3A%22https%3A%2F%2Fsrc.litix.io%2Fjwplayer%2F4%2Fjwplayer-mux.js%22%2C%22jwplayerMuxPlugin%22%3A%22https%3A%2F%2Fcdn.fullscreen.nz%2Fplayer-threenow-jwplayer%2Fprod%2Fjs%2Fplugin-mux-metrics.js%22%2C%22brazeSDKEndpoint%22%3A%22sdk.iad-05.braze.com%22%2C%22videoPlayersIds%22%3A%7B%22ssai%22%3A%22IzdnIuzF8%22%2C%22ima%22%3A%22jUnZ8Sjxj%22%7D%2C%22gigyaAPIKey%22%3A%223_VkkjwG21lv2-GrMj1BPrHVNkBY3QHmPyvzq286GWnVQAh_lxMDil4mrCYamXFpGD%22%2C%22adobeLaunchUrl%22%3A%22%2F%2Fassets.adobedtm.com%2F479fbb05b9cf%2Fe3642297f595%2Flaunch-2cecfa1a6b74.min.js%22%2C%22brazeApiKey%22%3A%22b484cb5a-225c-449d-a963-1d2e25de5817%22%2C%22brightcovePathKey%22%3A%221872491397001%2F9e9c0168-5e28-4ba0-8b57-57cac6b9f58c_default%22%2C%22MUX_ENV_KEY%22%3A%22n9bcstjchknjh4lpqner73qrq%22%2C%22facebookPixelId%22%3A%22289695196175883%22%2C%22nielsenConfig%22%3A%7B%22account%22%3A%22nz-canwest%22%2C%22server%22%3A%22secure-nz%22%7D%2C%22exportApplicationGlobal%22%3Afalse%2C%22ember-modal-dialog%22%3A%7B%7D%7D" />
+
+decode:
+=======
+console.log(
+  JSON.stringify(
+    JSON.parse(
+      decodeURIComponent(
+        document.querySelector('meta[name="mw-3now/config/environment"][content]').getAttribute('content')
+      )
+    ),
+    null, 2
+  )
+)
+
+output:
+=======
+{
+  "modulePrefix": "mw-3now",
+  "environment": "production",
+  "rootURL": "/",
+  "baseURL": "/",
+  "locationType": "auto",
+  "apiBase": "https://now-api.fullscreen.nz/v5/",
+  "EmberENV": {
+    "EXTEND_PROTOTYPES": false,
+    "FEATURES": {},
+    "_APPLICATION_TEMPLATE_WRAPPER": false,
+    "_DEFAULT_ASYNC_OBSERVERS": true,
+    "_JQUERY_INTEGRATION": false,
+    "_TEMPLATE_ONLY_GLIMMER_COMPONENTS": true
+  },
+  "APP": {
+    "name": "ThreeNow",
+    "version": "4.7.1",
+    "commit": "3103db88",
+    "buildDate": "4th December, 10:02:15 am",
+    "commitLink": "https://github.com/MediaworksAPI/now-web-ember/commit/3103db880901df399b682b925b824756d59b3c88",
+    "displayVersion": false,
+    "displayPlayerVariant": false,
+    "logging": {
+      "analytics": true,
+      "gigya": false
+    },
+    "videoPlayersIds": {
+      "ssai": "IzdnIuzF8",
+      "ima": "jUnZ8Sjxj"
+    }
+  },
+  "appStoreUrls": {
+    "iOS": "https://itunes.apple.com/nz/app/threenow/id713771599?mt=8",
+    "android": "https://play.google.com/store/apps/details?id=com.mediaworks.android",
+    "androidTV": "https://play.google.com/store/apps/details?id=com.mediaworks.android.tv",
+    "smartTV": "http://www.samsung.com/nz/3NOW/",
+    "freeViewPlus": "http://www.freeviewnz.tv/",
+    "appleTV": "https://itunes.apple.com/nz/app/threenow/id713771599?mt=8"
+  },
+  "dashboardMeta": {
+    "title": "ThreeNow | Three | Watch Episodes",
+    "description": "Watch the latest TV On Demand episodes of all your favourite shows from Three with ThreeNow. Watch Three livestream, Three Movies and Three shows.",
+    "footer": "Copyright &copy; 2024 Discovery NZ Limited (Warner Bros. Discovery) - All Rights Reserved"
+  },
+  "notFoundMeta": {
+    "title": "Page not found - Error 404",
+    "description": "Threenow 404 Page"
+  },
+  "brightcoveAccountId": "3812193411001",
+  "brightcovePolicyKey": "BCpkADawqM2-Pw-g3-psbmh7mEsKhBVp1QRsKxK5tBOpF72ud6VrAndDsRbs2jlmlgSRJiPdNjJOJESytpUUmyb-Muz41HVYcPcoEdG2E8xmHgcwy7frHjTwbJqTXo2Sxmhjgw2Nynprcv7c",
+  "videoPlayers": [
+    {
+      "name": "ssai",
+      "assets": {
+        "scripts": [
+          "//players.brightcove.net/3812193411001/IzdnIuzF8_default/index.min.js"
+        ],
+        "styles": []
+      }
+    },
+    {
+      "name": "ima",
+      "assets": {
+        "scripts": [
+          "//players.brightcove.net/3812193411001/jUnZ8Sjxj_default/index.min.js"
+        ],
+        "styles": []
+      }
+    },
+    {
+      "name": "livestream",
+      "assets": {
+        "scripts": [
+          "//content.jwplatform.com/libraries/Qwq54kwD.js"
+        ],
+        "styles": []
+      }
+    }
+  ],
+  "jwplayerPluginLSAI": "https://cdn.fullscreen.nz/player-threenow-jwplayer/prod/js/plugin-lsai-csb.js",
+  "jwplayerAdOverlay": "https://cdn.fullscreen.nz/player-threenow-jwplayer/prod/styles/ad-info.css",
+  "jwplayerMuxSDK": "https://src.litix.io/jwplayer/4/jwplayer-mux.js",
+  "jwplayerMuxPlugin": "https://cdn.fullscreen.nz/player-threenow-jwplayer/prod/js/plugin-mux-metrics.js",
+  "brazeSDKEndpoint": "sdk.iad-05.braze.com",
+  "videoPlayersIds": {
+    "ssai": "IzdnIuzF8",
+    "ima": "jUnZ8Sjxj"
+  },
+  "gigyaAPIKey": "3_VkkjwG21lv2-GrMj1BPrHVNkBY3QHmPyvzq286GWnVQAh_lxMDil4mrCYamXFpGD",
+  "adobeLaunchUrl": "//assets.adobedtm.com/479fbb05b9cf/e3642297f595/launch-2cecfa1a6b74.min.js",
+  "brazeApiKey": "b484cb5a-225c-449d-a963-1d2e25de5817",
+  "brightcovePathKey": "1872491397001/9e9c0168-5e28-4ba0-8b57-57cac6b9f58c_default",
+  "MUX_ENV_KEY": "n9bcstjchknjh4lpqner73qrq",
+  "facebookPixelId": "289695196175883",
+  "nielsenConfig": {
+    "account": "nz-canwest",
+    "server": "secure-nz"
+  },
+  "exportApplicationGlobal": false,
+  "ember-modal-dialog": {}
+}
+
+interesting:
+============
+{
+  "brightcoveAccountId": "3812193411001",
+  "brightcovePolicyKey": "BCpkADawqM2-Pw-g3-psbmh7mEsKhBVp1QRsKxK5tBOpF72ud6VrAndDsRbs2jlmlgSRJiPdNjJOJESytpUUmyb-Muz41HVYcPcoEdG2E8xmHgcwy7frHjTwbJqTXo2Sxmhjgw2Nynprcv7c",
+  "videoPlayers": [
+    {
+      "name": "ssai",
+      "assets": {
+        "scripts": ["//players.brightcove.net/3812193411001/IzdnIuzF8_default/index.min.js"]
+      }
+    },
+    {
+      "name": "ima",
+      "assets": {
+        "scripts": ["//players.brightcove.net/3812193411001/jUnZ8Sjxj_default/index.min.js"]
+      }
+    }
+  ],
+}
+
+--------------------------------------------------------------------------------
+
+cherry-pick:
+============
+console.log(
+  JSON.parse(
+    decodeURIComponent(
+      document.querySelector('meta[name="mw-3now/config/environment"][content]').getAttribute('content')
+    )
+  )
+  .videoPlayers.map(player => {
+    if (player && player.assets && Array.isArray(player.assets.scripts) && player.assets.scripts.length) {
+      for (var i=0; i < player.assets.scripts.length; i++) {
+        if (player.assets.scripts[i].indexOf('players.brightcove.net') >= 0)
+          return player.assets.scripts[i]
+      }
+    }
+    return null
+  })
+  .filter(url => !!url)
+  .join("\n")
+)
+
+output:
+=======
+//players.brightcove.net/3812193411001/IzdnIuzF8_default/index.min.js
+//players.brightcove.net/3812193411001/jUnZ8Sjxj_default/index.min.js
+
+--------------------------------------------------------------------------------
+
+https://players.brightcove.net/3812193411001/IzdnIuzF8_default/index.min.js
+  {accountId:"3812193411001",policyKey:"BCpkADawqM2-Pw-g3-psbmh7mEsKhBVp1QRsKxK5tBOpF72ud6VrAndDsRbs2jlmlgSRJiPdNjJOJESytpUUmyb-Muz41HVYcPcoEdG2E8xmHgcwy7frHjTwbJqTXo2Sxmhjgw2Nynprcv7c"}
+
+https://players.brightcove.net/3812193411001/jUnZ8Sjxj_default/index.min.js
+  {accountId:"3812193411001",policyKey:"BCpkADawqM2eH6Jh3sPiuWVBGA1Gqs5DuEJxCIXeh0NBi48ZbNJUuKEXyD8xOSRc2PcW2GA3wquVP9X_pieRDHDPl-6QaYIqevxgSxcet4vT3NFrxb4mbhyeRHAxaW2P5tTkY113kdYrh3w4"}
+
+--------------------------------------------------------------------------------
+
+https://now-api.fullscreen.nz/v5/shows/1736807040347
+
+{
+  "showId": "1736807040347",
+  "name": "Vince",
+  "showAdName": "vince",
+  "showMessage": "New episodes every Thursday",
+  "images": {
+    "spotlight": "https://cdn.fullscreen.nz/threenow/prod/shows/1736807040347/show-images/20250115T144748_vince_threenow_seriesspotlight_3200x1800.jpg?width=[width]&height=[height]&crop=auto",
+    "landscapeTile": "https://cdn.fullscreen.nz/threenow/prod/shows/1736807040347/show-images/20250115T144758_vince_threenow_title_1920x1080.jpg?width=[width]&height=[height]&crop=auto",
+    "portraitTile": "https://cdn.fullscreen.nz/threenow/prod/shows/1736807040347/show-images/20250115T144810_vince_threenow_portraittile_1080x1920.jpg?width=[width]&height=[height]&crop=auto"
+  },
+  "format": "S",
+  "extId": "90047482",
+  "channel": {
+    "id": "three",
+    "adName": "three",
+    "displayName": "Three"
+  },
+  "genres": ["comedy", "local"],
+  "synopsis": "Vince, a charming Breakfast TV host, endures a grave trouser malfunction at the children's cancer ward on live TV, and must navigate the aftermath to save his reputation.",
+  "website": null,
+  "websiteLinkTitle": null,
+  "episodeOrder": "oldest-first",
+  "easyWatch": {
+    "classificationWarnings": "C",
+    "videoId": "M94683-680",
+    "extId": "90489216",
+    "vodClassification": "M",
+    "videoTitle": "Season 1 Ep 1",
+    "overrideHistory": false
+  },
+  "seasons": [{
+    "seasonId": "90286905",
+    "showId": "1736807040347",
+    "name": "Season 1",
+    "order": 1,
+    "episodeOrder": "oldest-first",
+    "seasonNumber": "1",
+    "episodes": [{
+      "showId": "1736807040347",
+      "showTitle": "Vince",
+      "videoId": "M94683-680",
+      "seasonId": "90286905",
+      "extId": "90489216",
+      "genres": ["comedy", "local"],
+      "channel": "three",
+      "name": "Season 1 Ep 1",
+      "episode": 1,
+      "type": "episode",
+      "castEnabled": true,
+      "synopsis": "Vince, a charming Breakfast TV host, endures a grave trouser malfunction at the children's cancer ward on live TV, and must navigate the aftermath to save his reputation.",
+      "duration": 1465.472,
+      "geoblock": true,
+      "externalMediaId": "6367440676112",
+      "cuePoints": [{
+        "time": 0
+      }, {
+        "time": 635.6
+      }, {
+        "time": 1124.4
+      }],
+      "availableDate": "2025-02-13T06:02:00+13:00",
+      "expiryDate": "2028-12-05T06:00:00+13:00",
+      "images": {
+        "videoTile": "https://cdn.fullscreen.nz/threenow/prod/shows/1736807040347/media-images/20250122T094906_mw489216.mp42025012209h45m50s094.jpg?width=[width]&height=[height]&crop=auto"
+      },
+      "creditsCuePoint": 1450.472,
+      "airedDate": "2025-02-13T06:01:00+13:00",
+      "tags": ["tv3", "_g"],
+      "vodClassification": "M",
+      "classificationWarnings": "C"
+    }, {
+      "showId": "1736807040347",
+      "showTitle": "Vince",
+      "videoId": "M94684-454",
+      "seasonId": "90286905",
+      "extId": "90489217",
+      "genres": ["comedy", "local"],
+      "channel": "three",
+      "name": "Season 1 Ep 2",
+      "episode": 2,
+      "type": "episode",
+      "castEnabled": true,
+      "synopsis": "Stood down from his role, and facing legal action from lawyer-neighbour-crush Heidi on behalf of 'cancermum' Bethana', Vince attempts to save face with a public apology.",
+      "duration": 1300.757,
+      "geoblock": true,
+      "externalMediaId": "6367440212112",
+      "cuePoints": [{
+        "time": 0
+      }, {
+        "time": 552.08
+      }, {
+        "time": 981.84
+      }],
+      "availableDate": "2025-02-13T06:03:00+13:00",
+      "expiryDate": "2028-12-05T06:00:00+13:00",
+      "images": {
+        "videoTile": "https://cdn.fullscreen.nz/threenow/prod/shows/1736807040347/media-images/20250122T094942_mw489217.mp42025012209h46m15s017.jpg?width=[width]&height=[height]&crop=auto"
+      },
+      "creditsCuePoint": 1285.757,
+      "airedDate": "2025-02-13T06:02:00+13:00",
+      "tags": ["tv3", "_g"],
+      "vodClassification": "M",
+      "classificationWarnings": ""
+    }]
+  }],
+  "extras": [{
+    "showId": "1736807040347",
+    "showTitle": "Vince",
+    "videoId": "M94463-565",
+    "seasonId": "90286905",
+    "extId": "183",
+    "genres": ["comedy", "local"],
+    "channel": "three",
+    "name": "Vince Trailer",
+    "type": "extra",
+    "castEnabled": true,
+    "synopsis": "Coming Soon on Three and ThreeNow",
+    "duration": 0,
+    "geoblock": true,
+    "externalMediaId": "6367108947112",
+    "cuePoints": [],
+    "availableDate": "2025-01-19T06:00:00+13:00",
+    "expiryDate": "2025-03-03T05:33:00+13:00",
+    "images": {
+      "videoTile": "https://cdn.fullscreen.nz/threenow/prod/shows/1736807040347/media-images/20250115T145723_vincethumbnailcs.png?width=[width]&height=[height]&crop=auto"
+    },
+    "creditsCuePoint": -15,
+    "airedDate": "2025-01-19T04:00:00+13:00",
+    "tags": ["tv3", "extra"],
+    "vodClassification": "G",
+    "classificationWarnings": ""
+  }]
+}
+
+interesting:
+============
+{
+  "name": "Vince",
+  "synopsis": "Vince, a charming Breakfast TV host, endures a grave trouser malfunction at the children's cancer ward on live TV, and must navigate the aftermath to save his reputation.",
+  "seasons": [{
+    "seasonNumber": "1",
+    "episodes": [{
+      "episode": 1,
+      "name": "Season 1 Ep 1",
+      "type": "episode",
+      "videoId": "M94683-680",
+      "externalMediaId": "6367440676112",
+      "synopsis": "Vince, a charming Breakfast TV host, endures a grave trouser malfunction at the children's cancer ward on live TV, and must navigate the aftermath to save his reputation.",
+      "duration": 1465.472,
+      "expiryDate": "2028-12-05T06:00:00+13:00",
+    },{
+      "episode": 2,
+      "name": "Season 1 Ep 2",
+      "type": "episode",
+      "videoId": "M94684-454",
+      "externalMediaId": "6367440212112",
+      "synopsis": "Stood down from his role, and facing legal action from lawyer-neighbour-crush Heidi on behalf of 'cancermum' Bethana', Vince attempts to save face with a public apology.",
+      "duration": 1300.757,
+      "expiryDate": "2028-12-05T06:00:00+13:00",
+    }]
+  }]
+}
+
+notes:
+======
+* with respect to the brightcove API,
+  "externalMediaId" is the video reference id.
+
+--------------------------------------------------------------------------------
+
+brightcove API:
+===============
+
+policy_key_1='BCpkADawqM2-Pw-g3-psbmh7mEsKhBVp1QRsKxK5tBOpF72ud6VrAndDsRbs2jlmlgSRJiPdNjJOJESytpUUmyb-Muz41HVYcPcoEdG2E8xmHgcwy7frHjTwbJqTXo2Sxmhjgw2Nynprcv7c'
+policy_key_2='BCpkADawqM2eH6Jh3sPiuWVBGA1Gqs5DuEJxCIXeh0NBi48ZbNJUuKEXyD8xOSRc2PcW2GA3wquVP9X_pieRDHDPl-6QaYIqevxgSxcet4vT3NFrxb4mbhyeRHAxaW2P5tTkY113kdYrh3w4'
+account_id='3812193411001'
+reference_id='6367440676112'
+referer_url='https://www.threenow.co.nz/shows/vince/1736807040347'
+
+curl -s --insecure \
+  -o 'data/brightcove_api_1.txt' \
+  -H "Referer: ${referer_url}" \
+  -H "BCOV-POLICY: ${policy_key_1}" \
+  "https://edge.api.brightcove.com/playback/v1/accounts/${account_id}/videos/ref:${reference_id}"
+
+response:
+=========
+[
+  {
+    "error_code": "VIDEO_NOT_FOUND",
+    "message": "The designated resource was not found."
+  }
+]
+
+curl -s --insecure \
+  -o 'data/brightcove_api_2.txt' \
+  -H "Referer: ${referer_url}" \
+  -H "BCOV-POLICY: ${policy_key_2}" \
+  "https://edge.api.brightcove.com/playback/v1/accounts/${account_id}/videos/ref:${reference_id}"
+
+response:
+=========
+[
+  {
+    "error_code": "VIDEO_NOT_FOUND",
+    "message": "The designated resource was not found."
+  }
+]
+
+--------------------------------------------------------------------------------
+
+brightcove API (modified):
+==========================
+
+policy_key_1='BCpkADawqM2-Pw-g3-psbmh7mEsKhBVp1QRsKxK5tBOpF72ud6VrAndDsRbs2jlmlgSRJiPdNjJOJESytpUUmyb-Muz41HVYcPcoEdG2E8xmHgcwy7frHjTwbJqTXo2Sxmhjgw2Nynprcv7c'
+policy_key_2='BCpkADawqM2eH6Jh3sPiuWVBGA1Gqs5DuEJxCIXeh0NBi48ZbNJUuKEXyD8xOSRc2PcW2GA3wquVP9X_pieRDHDPl-6QaYIqevxgSxcet4vT3NFrxb4mbhyeRHAxaW2P5tTkY113kdYrh3w4'
+account_id='3812193411001'
+reference_id='6367440676112'
+referer_url='https://www.threenow.co.nz/shows/vince/1736807040347'
+
+curl -s --insecure \
+  -o 'data/brightcove_api_1.txt' \
+  -H "Referer: ${referer_url}" \
+  -H "BCOV-POLICY: ${policy_key_1}" \
+  "https://edge.api.brightcove.com/playback/v1/accounts/${account_id}/videos/${reference_id}"
+
+curl -s --insecure \
+  -o 'data/brightcove_api_2.txt' \
+  -H "Referer: ${referer_url}" \
+  -H "BCOV-POLICY: ${policy_key_2}" \
+  "https://edge.api.brightcove.com/playback/v1/accounts/${account_id}/videos/${reference_id}"
+
+notes:
+* test-case modification:
+  - remove "ref:" from URL path
+* API is geo-restricted
+  - response from USA:
+      [{
+        "client_geo": "us",
+        "error_subcode": "CLIENT_GEO",
+        "error_code": "ACCESS_DENIED",
+        "message": "Access to this resource is forbidden by access policy."
+      }]
+  - response from NZ (VPN):
+      200 OK
+* both "policy_key" values work
+  - there's no need to download and parse the video player .js file to extract data,
+    since both "account_id" and "policy_key" are included in the <meta> tag
+  - "showId" is included in the webpage URL path,
+    and needs to be extracted and used to download JSON that includes "reference_id" values
+    for every available episode in the series
+  - "videoId" isn't required, but is included in the webpage URL path for an individual episode;
+    if specified, then the following steps could be performed automatically at page load:
+    * determine "externalMediaId" for episode with matching "videoId"
+    * download video URLs via brightcove API
+    * display stream options in DOM
+
+--------------------------------------------------------------------------------
