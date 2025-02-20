@@ -1,8 +1,10 @@
 // ==UserScript==
 // @name         threenow
 // @description  Improve site usability. Watch videos in external player.
-// @version      1.0.0
+// @version      2.0.0
 // @match        *://*.threenow.co.nz/shows/*
+// @match        *://*.threenow.co.nz/live-tv-guide
+// @match        *://*.threenow.co.nz/live-tv-guide/*
 // @icon         https://www.threenow.co.nz/assets/images/favicons/favicon.ico
 // @run-at       document-end
 // @grant        unsafeWindow
@@ -62,6 +64,17 @@ var strings = {
       "format":                     "format:",
       "drm":                        "drm:"
     }
+  },
+  "livetv_channel_labels": {
+    "epg": {
+      "series_title":               "Series Title:",
+      "episode_title":              "Episode Title:",
+      "episode_summary":            "Summary:",
+      "season_number":              "Season #:",
+      "episode_number":             "Episode #:",
+      "duration_date_range":        "Time:",
+      "duration":                   "Duration:"
+    }
   }
 }
 
@@ -70,9 +83,13 @@ var strings = {
 var state = {
   policy_key: null,
   account_id: null,
-  series:     null, // {title, summary}
-  episodes:   null, // [{reference_id, title, summary, duration, expires}]
-  current_episode_index: -1
+
+  series:   {}, // {title, summary}
+  episodes: [], // [{reference_id, title, summary, duration, expires}]
+  current_episode_index: -1,
+
+  livetv_channels: [], // [{name, video_data, epg: [{series_title, episode_title, episode_summary, season_number, episode_number, duration_date_range, duration}]}]
+  current_livetv_channel_index: -1
 }
 
 // ----------------------------------------------------------------------------- CSP
@@ -176,10 +193,16 @@ var download_text = function(url, headers, data, callback) {
 
   xhr.onload = function(e) {
     if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        callback(xhr.responseText)
+      if ((xhr.status >= 200) && (xhr.status < 300)) {
+        callback(null, xhr.responseText)
+        return
       }
     }
+    callback(new Error())
+  }
+
+  xhr.onerror = function(e) {
+    callback(new Error())
   }
 
   if (data)
@@ -194,9 +217,12 @@ var download_json = function(url, headers, data, callback) {
   if (!headers.accept)
     headers.accept = 'application/json'
 
-  download_text(url, headers, data, function(text){
+  download_text(url, headers, data, function(error, text){
     try {
-      callback(JSON.parse(text))
+      if (error)
+        callback(error)
+      else
+        callback(null, JSON.parse(text))
     }
     catch(e) {}
   })
@@ -288,6 +314,22 @@ var convertSecondsToReadableString = function(seconds) {
   return parts.join(', ')
 }
 
+var convertDateRangeToReadableString = function(start_date, end_date) {
+  start_date = new Date(start_date)
+  end_date   = new Date(end_date)
+
+  var parts = {
+    start_date: start_date.toLocaleDateString(),
+    start_time: start_date.toLocaleTimeString(),
+
+    end_date:   end_date.toLocaleDateString(),
+    end_time:   end_date.toLocaleTimeString()
+  }
+
+  var range = parts.start_date + ' ' + parts.start_time + ' - ' + ((parts.end_date !== parts.start_date) ? (parts.end_date + ' ') : '') + parts.end_time
+  return range
+}
+
 // ----------------------------------------------------------------------------- URL links to tools on Webcast Reloaded website
 
 var get_webcast_reloaded_url = function(video_data, force_http, force_https) {
@@ -304,7 +346,7 @@ var get_webcast_reloaded_url = function(video_data, force_http, force_https) {
 
   webcast_reloaded_base = {
     "https": "https://warren-bank.github.io/crx-webcast-reloaded/external_website/index.html",
-    "http":  "http://webcast-reloaded.surge.sh/index.html"
+    "http":  "http://webcast-reloaded.frii.site/index.html"
   }
 
   webcast_reloaded_base = (force_http)
@@ -509,7 +551,9 @@ var download_episodes_list = function(showId, videoId, callback) {
     /* url= */ 'https://now-api.fullscreen.nz/v5/shows/' + showId,
     /* headers= */ null,
     /* data= */ null,
-    function(series_data) {
+    function(error, series_data) {
+      if (error) return
+
       debug('series_data: ' + typeof series_data)
       debug('seasons: ' + typeof series_data.seasons + ' (' + (Array.isArray(series_data.seasons) ? 'array' : 'not array') + ')')
       if (!series_data || (typeof series_data !== 'object') || !Array.isArray(series_data.seasons) || !series_data.seasons.length) return
@@ -606,7 +650,9 @@ var download_video_sources = function(reference_id, callback) {
       "BCOV-POLICY": state.policy_key
     },
     /* data= */ null,
-    function($brightcove_data) {
+    function(error, $brightcove_data) {
+      if (error) return
+
       if (!$brightcove_data || (typeof $brightcove_data !== 'object') || !Array.isArray($brightcove_data.sources) || !$brightcove_data.sources.length) return
 
       $brightcove_data.sources = $brightcove_data.sources.filter(function(vidsrc) {
@@ -695,6 +741,143 @@ var resolve_drm_scheme = function(drm_schemes, drm_key) {
   }
 
   return null
+}
+
+// ----------------------------------------------------------------------------- API: download live tv guide
+
+var download_livetv_guide = function(channelId, callback) {
+  download_json(
+    /* url= */ 'https://now-api.fullscreen.nz/v5/live-epg',
+    /* headers= */ null,
+    /* data= */ null,
+    function(error, livetv_data) {
+      if (error) return
+
+      debug('livetv_data: ' + typeof livetv_data)
+      debug('channels: ' + typeof livetv_data.channels + ' (' + (Array.isArray(livetv_data.channels) ? 'array' : 'not array') + ')')
+      if (!livetv_data || (typeof livetv_data !== 'object') || !Array.isArray(livetv_data.channels) || !livetv_data.channels.length) return
+
+      state.series = {
+        title:   'Live TV Channels',
+        summary: null
+      }
+
+      state.livetv_channels = normalize_livetv_channels_list(
+        livetv_data.channels
+      )
+
+      debug('live tv channels: ' + typeof state.livetv_channels + ' (' + ((state.livetv_channels === null) ? 'null' : state.livetv_channels.length) + ')')
+      if (!state.livetv_channels || !state.livetv_channels.length) return
+
+      if (channelId) {
+        for (var i=0; i < state.livetv_channels.length; i++) {
+          if (state.livetv_channels[i].channelId === channelId) {
+            state.current_livetv_channel_index = i
+            break
+          }
+        }
+      }
+
+      download_livetv_channel_3(callback)
+    }
+  )
+}
+
+var normalize_livetv_channels_list = function(all_channels) {
+  if (!Array.isArray(all_channels) || !all_channels.length) return null
+
+  return all_channels.map(function(channel) {
+    if (!channel || (typeof channel !== 'object') || !channel.channelId || !channel.displayName || !channel.videoRenditions || (typeof channel.videoRenditions !== 'object') || !channel.videoRenditions.hlsUrl) return null
+
+    var epg = (Array.isArray(channel.broadcasts) && channel.broadcasts.length)
+      ? channel.broadcasts.map(function(broadcast) {
+          var duration_date_range, duration
+
+          duration_date_range = (broadcast.startDate && broadcast.endDate)
+            ? convertDateRangeToReadableString(broadcast.startDate, broadcast.endDate)
+            : null
+
+          duration = broadcast.duration
+            ? convertSecondsToReadableString(
+                broadcast.duration
+              )
+            : null
+
+          return {
+            series_title:        broadcast.title,
+            episode_title:       broadcast.episodeName,
+            episode_summary:     broadcast.episodeSynopsis,
+            season_number:       broadcast.seriesNumber,
+            episode_number:      broadcast.episodeNumber,
+            duration_date_range: duration_date_range,
+            duration:            duration
+          }
+        })
+      : null
+
+    var video_data = {
+      videoRenditions: channel.videoRenditions,
+      video_url:       channel.videoRenditions.hlsUrl,
+      video_type:      'application/x-mpegurl',
+      caption_url: null,
+      referer_url: null,
+      drm: {
+        scheme:    null,
+        server:    null,
+        headers:   null
+      }
+    }
+
+    return {
+      channelId:  channel.channelId,
+      name:       channel.displayName,
+      video_data: video_data,
+      epg:        epg
+    }
+  })
+  .filter(function(episode) {
+    return !!episode
+  })
+}
+
+// ----------------------------------------------------------------------------- API: download live tv channel 3
+
+var download_livetv_channel_3 = function(callback) {
+  var videoRenditions = null
+  var channel_3_index = -1
+
+  for (var i=0; i < state.livetv_channels.length; i++) {
+    if (state.livetv_channels[i].channelId === 'three') {
+      videoRenditions = state.livetv_channels[i].video_data.videoRenditions
+      channel_3_index = i
+    }
+  }
+
+  if (!videoRenditions || (typeof videoRenditions !== 'object') || !videoRenditions.lsai || (typeof videoRenditions.lsai !== 'object') || !videoRenditions.lsai.csab) {
+    callback()
+  }
+  else {
+    download_json(
+      /* url= */ videoRenditions.lsai.csab,
+      /* headers= */ {'content-type': 'application/json'},
+      /* data= */ {"adsParams": {"channelId": "three", "watchFromStart": "", "PPID": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "cust_params": "show%3D%7BcurrentShowTitle%7D%26episode%3D%7BcurrentEpisodeTitle%7D%26channel%3Dthree%26scor%3D%7BplaybackSessionId%7D%26msg%3D%5Bmsg%5D%26description_url%3Dhttps%3A%2F%2Fwww.threenow.co.nz%2Flive-tv-guide%2Fthree%26genre%3D%7BcurrentShowGenre%7D%26classification%3D%7BcurrentShowClassification%7D%26season%3D%7BcurrentShowSeason%7D%26url%3Dhttps%3A%2F%2Fwww.threenow.co.nz%2Flive-tv-guide%2Fthree", "sz": "620x288", "iu_parts": "/4100/three-live/desktop-ss/{currentShowTitle}", "description_url": "https%253A%252F%252Fwww.threenow.co.nz%252Flive-tv-guide%252Fthree", "url": "https%253A%252F%252Fwww.threenow.co.nz%252Flive-tv-guide%252Fthree", "platform": "desktop"}},
+      function(error, channel_3_urls) {
+        if (!error && channel_3_urls && channel_3_urls.manifestUrl) {
+          if (channel_3_urls.manifestUrl[0] === '/') {
+            var regex = new RegExp('^(https?://[^/]+).*$', 'i')
+            var match = regex.exec(videoRenditions.lsai.csab)
+
+            if (match) {
+              channel_3_urls.manifestUrl = match[1] + channel_3_urls.manifestUrl
+            }
+          }
+
+          state.livetv_channels[channel_3_index].video_data.video_url = channel_3_urls.manifestUrl
+        }
+        callback()
+      }
+    )
+  }
 }
 
 // ----------------------------------------------------------------------------- DOM: static skeleton
@@ -864,11 +1047,43 @@ var reinitialize_dom = function() {
       '}',
       'body > div > ul > li div.icons-container > a.airplay + a.video-link {',
       '  right: 17px; /* (60 - 25)/2 to center when there is no proxy icon */',
-      '}'
+      '}',
+
+      // --------------------------------------------------- live tv channel
+
+      'body > div > ul > li > blockquote + div > table.livetv-channel tr {',
+      '  vertical-align: top;',
+      '}',
+
+      'body > div > ul > li > blockquote + div > table.livetv-channel tr > td {',
+      '  padding: 0;',
+      '}',
+
+      'body > div > ul > li > blockquote + div > table.livetv-channel tr > td:first-child {',
+      '  white-space: nowrap;',
+      '  padding-right: 1em;',
+      '}',
+
+      'body > div > ul > li > blockquote + div > table.livetv-channel tr > td > h3 {',
+      '  padding: 0;',
+      '  margin: 0;',
+      '}',
+
+      'body > div > ul > li > blockquote + div > table.livetv-channel table {',
+      '  width: 100%;',
+      '}',
+
+      'body > div > ul > li > blockquote + div > table.livetv-channel table table tr > td {',
+      '  border-style: none;',
+      '  padding: 0.25em 0;',
+      '}',
+
+      ''
     ]
   })
 
   var div, ul, li
+  var i
 
   div = make_element('div')
   ul  = make_element('ul')
@@ -888,7 +1103,7 @@ var reinitialize_dom = function() {
     )
   }
 
-  for (var i=0; i < state.episodes.length; i++) {
+  for (i=0; i < state.episodes.length; i++) {
     li = make_episode_listitem_element(
       state.episodes[i]
     )
@@ -902,10 +1117,24 @@ var reinitialize_dom = function() {
     }
   }
 
+  for (i=0; i < state.livetv_channels.length; i++) {
+    li = make_livetv_channel_listitem_element(
+      state.livetv_channels[i]
+    )
+
+    if (li) {
+      ul.appendChild(li)
+
+      if (i === state.current_livetv_channel_index) {
+        li.querySelector(':scope button[' + constants.button_attributes.video_url + ']').click()
+      }
+    }
+  }
+
   unsafeWindow.document.body.appendChild(div)
 }
 
-// -----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------- DOM: <li> for episode in show series
 
 var make_episode_listitem_element = function(episode) {
   // const {reference_id, title, summary, duration, expires} = episode
@@ -1100,11 +1329,86 @@ var make_webcast_reloaded_div = function(video_data) {
   return div
 }
 
-// ----------------------------------------------------------------------------- bootstrap
+// ----------------------------------------------------------------------------- DOM: <li> for live tv channel
 
-var page_init = function() {
-  debug('initializing..', true)
+var make_livetv_channel_listitem_element = function(channel) {
+  // const {name, video_data, epg} = channel
 
+  var tr, epg_html, html, li, buttons_container
+
+  tr = []
+  if (Array.isArray(channel.epg) && channel.epg.length) {
+    for (var i=0; i < channel.epg.length; i++) {
+      append_tr(
+        tr,
+        add_epg_to_livetv_channel_listitem_element(channel.epg[i])
+      )
+    }
+  }
+
+  epg_html = []
+  if (tr.length) {
+    epg_html = [
+      '<h3>EPG:</h3>',
+      '<table class="livetv-epg">',
+        '<tr><td></td></tr>',
+        tr.join("\n"),
+      '</table>'
+    ]
+  }
+
+  html = [
+    '<blockquote>' + channel.name + '</blockquote>',
+    '<div>',
+      '<table class="livetv-channel">',
+        '<tr>',
+          '<td class="livetv-channel-buttons"></td>',
+          '<td>',
+            epg_html.join("\n"),
+          '</td>',
+        '</tr>',
+      '</table>',
+    '</div>'
+  ]
+
+  li = make_element('li', html.join("\n"))
+
+  epg_html = null
+  html = null
+
+  buttons_container = li.querySelector(':scope td.livetv-channel-buttons')
+
+  add_start_video_button(     buttons_container, channel.video_data)
+  insert_webcast_reloaded_div(buttons_container, channel.video_data)
+
+  return li
+}
+
+var add_epg_to_livetv_channel_listitem_element = function(epg) {
+  // const {series_title, episode_title, episode_summary, season_number, episode_number, duration_date_range, duration} = epg
+
+  var tr = []
+  if (epg.duration_date_range)
+    append_tr(tr, [strings.livetv_channel_labels.epg.duration_date_range, epg.duration_date_range])
+  if (epg.duration)
+    append_tr(tr, [strings.livetv_channel_labels.epg.duration, epg.duration])
+  if (epg.series_title)
+    append_tr(tr, [strings.livetv_channel_labels.epg.series_title, epg.series_title])
+  if (epg.episode_title)
+    append_tr(tr, [strings.livetv_channel_labels.epg.episode_title, epg.episode_title])
+  if (epg.episode_summary)
+    append_tr(tr, [strings.livetv_channel_labels.epg.episode_summary, epg.episode_summary])
+  if (epg.season_number)
+    append_tr(tr, [strings.livetv_channel_labels.epg.season_number, epg.season_number])
+  if (epg.episode_number)
+    append_tr(tr, [strings.livetv_channel_labels.epg.episode_number, epg.episode_number])
+
+  return '<table>' + tr.join("\n") + '</table>'
+}
+
+// ----------------------------------------------------------------------------- bootstrap: shows
+
+var page_init_shows = function() {
   var regexs = {
     series_url:  new RegExp('^/shows/[^/]+/([^/]+)/?(?:[#\?].*)?$'),
     episode_url: new RegExp('^/shows/[^/]+/[^/]+/([^/]+)/([^/]+)/?(?:[#\?].*)?$')
@@ -1130,7 +1434,36 @@ var page_init = function() {
   debug('videoId: ' + videoId)
   if (showId) {
     download_episodes_list(showId, videoId, reinitialize_dom)
+    return true
   }
+  return false
+}
+
+// ----------------------------------------------------------------------------- bootstrap: live tv
+
+var page_init_livetv = function() {
+  var regexs = {
+    channel_url: new RegExp('^/live-tv-guide/?([^/#\?]+)?(?:[/#\?].*)?$')
+  }
+
+  var path = unsafeWindow.location.pathname
+  var match, channelId
+
+  match = regexs.channel_url.exec(path)
+  if (match) {
+    channelId = match[1]
+    download_livetv_guide(channelId, reinitialize_dom)
+    return true
+  }
+  return false
+}
+
+// ----------------------------------------------------------------------------- bootstrap
+
+var page_init = function() {
+  debug('initializing..', true)
+
+  page_init_shows() || page_init_livetv()
 }
 
 if (user_options.common.init_delay_ms)
