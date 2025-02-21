@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         threenow
 // @description  Improve site usability. Watch videos in external player.
-// @version      2.0.0
+// @version      2.1.0
 // @match        *://*.threenow.co.nz/shows/*
 // @match        *://*.threenow.co.nz/live-tv-guide
 // @match        *://*.threenow.co.nz/live-tv-guide/*
@@ -64,6 +64,10 @@ var strings = {
       "format":                     "format:",
       "drm":                        "drm:"
     }
+  },
+  "livetv_epg_toggle_button": {
+    "show":                         "Show",
+    "hide":                         "Hide"
   },
   "livetv_channel_labels": {
     "epg": {
@@ -1078,6 +1082,16 @@ var reinitialize_dom = function() {
       '  padding: 0.25em 0;',
       '}',
 
+      'body > div > ul > li > blockquote + div > table.livetv-channel div.livetv-epg-toggle-container {',
+      '  transition: height  0.5s linear;',
+      '  overflow-y: hidden !important;',
+      '  height: auto !important;',
+      '}',
+
+      'body > div > ul > li > blockquote + div > table.livetv-channel div.livetv-epg-toggle-container.toggle-hide {',
+      '  height: 0px !important;',
+      '}',
+
       ''
     ]
   })
@@ -1334,7 +1348,7 @@ var make_webcast_reloaded_div = function(video_data) {
 var make_livetv_channel_listitem_element = function(channel) {
   // const {name, video_data, epg} = channel
 
-  var tr, epg_html, html, li, buttons_container
+  var tr, epg_html, html, li, buttons_container, livetv_epg_toggle_button
 
   tr = []
   if (Array.isArray(channel.epg) && channel.epg.length) {
@@ -1350,10 +1364,13 @@ var make_livetv_channel_listitem_element = function(channel) {
   if (tr.length) {
     epg_html = [
       '<h3>EPG:</h3>',
-      '<table class="livetv-epg">',
-        '<tr><td></td></tr>',
-        tr.join("\n"),
-      '</table>'
+      '<button class="livetv-epg-toggle-button">' + strings.livetv_epg_toggle_button.show + '</button>',
+      '<div class="livetv-epg-toggle-container toggle-hide">',
+        '<table class="livetv-epg">',
+          '<tr><td></td></tr>',
+          tr.join("\n"),
+        '</table>',
+      '</div>'
     ]
   }
 
@@ -1381,6 +1398,11 @@ var make_livetv_channel_listitem_element = function(channel) {
   add_start_video_button(     buttons_container, channel.video_data)
   insert_webcast_reloaded_div(buttons_container, channel.video_data)
 
+  livetv_epg_toggle_button = li.querySelector(':scope button.livetv-epg-toggle-button')
+  if (livetv_epg_toggle_button) {
+    livetv_epg_toggle_button.addEventListener("click", onclick_livetv_epg_toggle_button)
+  }
+
   return li
 }
 
@@ -1404,6 +1426,30 @@ var add_epg_to_livetv_channel_listitem_element = function(epg) {
     append_tr(tr, [strings.livetv_channel_labels.epg.episode_number, epg.episode_number])
 
   return '<table>' + tr.join("\n") + '</table>'
+}
+
+var onclick_livetv_epg_toggle_button = function(event) {
+  cancel_event(event)
+
+  var className = 'toggle-hide'
+  var button, div_dynamic
+
+  button = event.target
+  if (!button) return
+
+  div_dynamic = button.nextElementSibling
+  if (!div_dynamic || !div_dynamic.classList.contains('livetv-epg-toggle-container')) return
+
+  if (div_dynamic.classList.contains(className)) {
+    // toggle: hide => show
+    div_dynamic.classList.remove(className)
+    button.textContent = strings.livetv_epg_toggle_button.hide
+  }
+  else {
+    // toggle: show => hide
+    div_dynamic.classList.add(className)
+    button.textContent = strings.livetv_epg_toggle_button.show
+  }
 }
 
 // ----------------------------------------------------------------------------- bootstrap: shows
