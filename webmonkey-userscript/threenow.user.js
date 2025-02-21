@@ -1,10 +1,8 @@
 // ==UserScript==
 // @name         threenow
 // @description  Improve site usability. Watch videos in external player.
-// @version      2.1.0
-// @match        *://*.threenow.co.nz/shows/*
-// @match        *://*.threenow.co.nz/live-tv-guide
-// @match        *://*.threenow.co.nz/live-tv-guide/*
+// @version      2.2.0
+// @match        *://*.threenow.co.nz/*
 // @icon         https://www.threenow.co.nz/assets/images/favicons/favicon.ico
 // @run-at       document-end
 // @grant        unsafeWindow
@@ -1504,12 +1502,63 @@ var page_init_livetv = function() {
   return false
 }
 
+// ----------------------------------------------------------------------------- bootstrap: all other pages
+
+var page_init_default = function() {
+  // force web 1.0 navigation on anchor click
+  unsafeWindow.document.addEventListener("click", function(event) {
+    var element = event.target
+    var anchor, url
+
+    if (element instanceof HTMLAnchorElement) {
+      anchor = element
+    }
+    else {
+      // inspect parent elements
+      while (element.parentElement) {
+        element = element.parentElement
+        if (element instanceof HTMLAnchorElement) {
+          anchor = element
+          break
+        }
+      }
+    }
+
+    if (anchor instanceof HTMLAnchorElement) {
+      if (anchor.hasAttribute('href')) {
+        url = anchor.getAttribute('href')
+      }
+      else if (anchor.hasAttribute('data-name')) {
+        // special handler for top navmenu
+        switch(anchor.getAttribute('data-name')) {
+          case 'home':
+            url = '/'
+            break
+          case 'livestreams':
+            url = '/live-tv-guide'
+            break
+          case 'categories':
+            url = '/categories'
+            break
+        }
+      }
+
+      if (url) {
+        redirect_to_url(url)
+        cancel_event(event)
+      }
+    }
+  }, true)
+
+  return true
+}
+
 // ----------------------------------------------------------------------------- bootstrap
 
 var page_init = function() {
   debug('initializing..', true)
 
-  page_init_shows() || page_init_livetv()
+  page_init_shows() || page_init_livetv() || page_init_default()
 }
 
 if (user_options.common.init_delay_ms)
