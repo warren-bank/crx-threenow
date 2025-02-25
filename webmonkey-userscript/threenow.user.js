@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         threenow
 // @description  Improve site usability. Watch videos in external player.
-// @version      2.2.0
+// @version      2.2.1
 // @match        *://*.threenow.co.nz/*
 // @icon         https://www.threenow.co.nz/assets/images/favicons/favicon.ico
 // @run-at       document-end
@@ -1562,6 +1562,6 @@ var page_init = function() {
 }
 
 if (user_options.common.init_delay_ms)
-  setTimeout(page_init, user_options.common.init_delay_ms)
+  unsafeWindow.setTimeout(page_init, user_options.common.init_delay_ms)
 else
   page_init()
