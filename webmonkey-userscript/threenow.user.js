@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         threenow
 // @description  Improve site usability. Watch videos in external player.
-// @version      2.2.1
+// @version      2.2.2
 // @match        *://*.threenow.co.nz/*
 // @icon         https://www.threenow.co.nz/assets/images/favicons/favicon.ico
 // @run-at       document-end
@@ -434,7 +434,7 @@ var process_video_data = function(data) {
     // running in Android-WebMonkey: open Intent chooser
 
     if (!data.video_type)
-      data.video_type = determine_video_type(data.video_url)
+      data.video_type = ''
 
     var args = [
       /* action = */ 'android.intent.action.VIEW',
